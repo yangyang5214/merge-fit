@@ -11,7 +11,7 @@ public class FitDecode {
 
     public FitSession session = new FitSession();
 
-    public void Encode(String fitFile) {
+    public FitSession Encode(String fitFile) {
         Decode decode = new Decode();
         MesgBroadcaster mesgBroadcaster = new MesgBroadcaster(decode);
         Listener listener = new Listener(session);
@@ -30,6 +30,8 @@ public class FitDecode {
         mesgBroadcaster.addListener((RecordMesgListener) listener);
         mesgBroadcaster.addListener((LapMesgListener) listener);
         mesgBroadcaster.addListener((SessionMesgListener) listener);
+        mesgBroadcaster.addListener((ActivityMesgListener) listener);
+        mesgBroadcaster.addListener((EventMesgListener) listener);
 
         decode.read(in, mesgBroadcaster, mesgBroadcaster);
 
@@ -43,12 +45,14 @@ public class FitDecode {
         System.out.println("Record size: " + session.getRecords().size());
         System.out.println("Lap size: " + session.getLaps().size());
         System.out.println();
+
+        return session;
     }
 
 
     private static class Listener implements FileIdMesgListener, UserProfileMesgListener, DeviceInfoMesgListener,
             MonitoringMesgListener, RecordMesgListener, DeveloperFieldDescriptionListener, SessionMesgListener,
-            EventMesgListener, LapMesgListener {
+            EventMesgListener, LapMesgListener, ActivityMesgListener {
         private final FitSession session;
 
         public Listener(FitSession session) {
@@ -102,7 +106,7 @@ public class FitDecode {
 
         @Override
         public void onMesg(SessionMesg sessionMesg) {
-            this.session.setSessionMesg(sessionMesg);
+            this.session.setSession(sessionMesg);
         }
 
         @Override
@@ -113,6 +117,11 @@ public class FitDecode {
         @Override
         public void onMesg(LapMesg lapMesg) {
             this.session.getLaps().add(lapMesg);
+        }
+
+        @Override
+        public void onMesg(ActivityMesg activityMesg) {
+            this.session.setActivity(activityMesg);
         }
     }
 }

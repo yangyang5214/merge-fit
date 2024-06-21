@@ -16,11 +16,13 @@ public class FitSession {
 
     private List<RecordMesg> records;
 
-    private SessionMesg sessionMesg;
+    private SessionMesg session;
 
     private List<EventMesg> events;
 
     private List<LapMesg> laps;
+
+    private ActivityMesg activity;
 
     public FitSession() {
         records = new ArrayList<>();

@@ -19,7 +19,7 @@
               <createDependencyReducedPom>true</createDependencyReducedPom>
               <transformers>
                 <transformer>
-                  <mainClass>com.yangyang5214.com.yangyang5214.mergefit.App</mainClass>
+                  <mainClass>com.yangyang5214.mergefit.App</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -33,7 +33,7 @@
           <archive>
             <manifest>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              <mainClass>com.yangyang5214.com.yangyang5214.mergefit.App</mainClass>
+              <mainClass>com.yangyang5214.mergefit.App</mainClass>
             </manifest>
           </archive>
         </configuration>
