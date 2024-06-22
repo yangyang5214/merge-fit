@@ -8,11 +8,27 @@ import java.io.FileOutputStream;
 
 public class FitStat {
 
-    public void Parse(String fitFile) {
-        FitSession session = new FitDecode().Encode(fitFile);
+    private FitSession session;
+    private Gson gson;
 
-        Gson gson = new GsonBuilder().create();
-        String json = gson.toJson(session.getSession());
+
+    public FitStat(String fitFile) {
+        this.session = new FitDecode().Encode(fitFile);
+        this.gson = new GsonBuilder().create();
+    }
+
+    public void Record() {
+        String json = gson.toJson(session.getRecords());
+        try (FileOutputStream fileOutputStream = new FileOutputStream("record.json")) {
+            byte[] bytes = json.getBytes();
+            fileOutputStream.write(bytes);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void Session() {
+        String json = this.gson.toJson(session.getSession());
         System.out.println(json);
 
         try (FileOutputStream fileOutputStream = new FileOutputStream("session.json")) {

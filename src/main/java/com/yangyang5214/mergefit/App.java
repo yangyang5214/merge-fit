@@ -18,8 +18,11 @@ public class App {
         Option merge = new Option("m", "merge", true, "Merge fits. Usage: merge <result.fit> input-1.fit input-2.fit");
         options.addOption(merge);
 
-        Option stat = new Option("s", "stat", true, "Gen stat info.Usage: stat <result.fit>");
+        Option stat = new Option("s", "stat", true, "Gen stat info. Usage: stat <result.fit>");
         options.addOption(stat);
+
+        Option points = new Option("p", "point", true, "Parse all points. Usage: point <result.fit>");
+        options.addOption(points);
 
         CommandLine cmd;
         CommandLineParser parser = new DefaultParser();
@@ -31,11 +34,14 @@ public class App {
         }
 
         try {
+            String[] params = Arrays.copyOfRange(args, 1, args.length);
             cmd = parser.parse(options, args);
             if (cmd.hasOption("m")) {
-                merge(Arrays.copyOfRange(args, 1, args.length));
+                merge(params);
             } else if (cmd.hasOption("s")) {
-                stat(Arrays.copyOfRange(args, 1, args.length));
+                stat(params);
+            } else if (cmd.hasOption("p")) {
+                point(params);
             }
         } catch (ParseException e) {
             System.out.println(e.getMessage());
@@ -45,7 +51,12 @@ public class App {
 
     public static void stat(String[] args) {
         String fieFile = args[0];
-        new FitStat().Parse(fieFile);
+        new FitStat(fieFile).Session();
+    }
+
+    public static void point(String[] args) {
+        String fieFile = args[0];
+        new FitStat(fieFile).Record();
     }
 
     public static void merge(String[] args) {
