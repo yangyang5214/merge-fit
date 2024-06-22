@@ -25,3 +25,5 @@ replay_pid*
 
 
 fits/result.fit
+dependency-reduced-pom.xml
+target
