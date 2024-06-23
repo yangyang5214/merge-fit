@@ -95,10 +95,15 @@ public class FitMerge {
             messages.addAll(session.getLaps());
         }
 
+
+        SessionMesg firstSession = sessions.get(0).getSession();
+
         //Session
         SessionMesg sessionMesg = new SessionMesg();
         sessionMesg.setMessageIndex(0);
         sessionMesg.setStartTime(startTime);
+        sessionMesg.setStartPositionLat(firstSession.getStartPositionLat());
+        sessionMesg.setStartPositionLong(firstSession.getStartPositionLong());
 
         float totalDistance = totalDistance();
         float totalMovingTime = totalMovingTime();
