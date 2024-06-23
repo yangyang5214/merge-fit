@@ -363,10 +363,13 @@ public class FitMerge {
         return r / this.sessions.size();
     }
 
-    public float maxSpeed() {
+    public Float maxSpeed() {
         float r = 0;
         for (FitSession session : this.sessions) {
-            float val = session.getSession().getMaxSpeed();
+            Float val = session.getSession().getMaxSpeed();
+            if (val == null) {
+                return null;
+            }
             if (val > r) {
                 r = val;
             }
@@ -473,10 +476,13 @@ public class FitMerge {
     }
 
 
-    public short maxHeartRate() {
+    public Short maxHeartRate() {
         short r = 0;
         for (FitSession session : this.sessions) {
-            short val = session.getSession().getMaxHeartRate();
+            Short val = session.getSession().getMaxHeartRate();
+            if (val == null) {
+                return null;
+            }
             if (val > r) {
                 r = val;
             }
