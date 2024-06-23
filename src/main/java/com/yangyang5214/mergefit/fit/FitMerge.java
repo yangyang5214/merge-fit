@@ -159,9 +159,12 @@ public class FitMerge {
     }
 
     private Byte maxTemperature() {
-        Byte r = 0;
+        byte r = 0;
         for (FitSession session : this.sessions) {
             Byte val = session.getSession().getMaxTemperature();
+            if (val == null) {
+                return 0;
+            }
             if (val > r) {
                 r = val;
             }
@@ -181,7 +184,10 @@ public class FitMerge {
     public short avgHeartRate() {
         float r = 0;
         for (FitSession session : this.sessions) {
-            float val = session.getSession().getAvgHeartRate();
+            Short val = session.getSession().getAvgHeartRate();
+            if (val == null) {
+                return 0;
+            }
             r = r + val;
         }
         return (short) (r / this.sessions.size());
@@ -190,7 +196,10 @@ public class FitMerge {
     public float avgPosVerticalSpeed() {
         float r = 0;
         for (FitSession session : this.sessions) {
-            float val = session.getSession().getAvgPosVerticalSpeed();
+            Float val = session.getSession().getAvgPosVerticalSpeed();
+            if (val == null) {
+                return 0;
+            }
             r = r + val;
         }
         return r / this.sessions.size();
@@ -199,7 +208,10 @@ public class FitMerge {
     public float avgNegVerticalSpeed() {
         float r = 0;
         for (FitSession session : this.sessions) {
-            float val = session.getSession().getAvgNegVerticalSpeed();
+            Float val = session.getSession().getAvgNegVerticalSpeed();
+            if (val == null) {
+                return 0;
+            }
             r = r + val;
         }
         return r / this.sessions.size();
@@ -222,7 +234,11 @@ public class FitMerge {
     public int totalCalories() {
         int r = 0;
         for (FitSession session : this.sessions) {
-            r = r + session.getSession().getTotalCalories();
+            Integer val = session.getSession().getTotalCalories();
+            if (val == null) {
+                return 0;
+            }
+            r = r + val;
         }
         return r;
     }
@@ -230,7 +246,11 @@ public class FitMerge {
     public int totalAscent() {
         int r = 0;
         for (FitSession session : this.sessions) {
-            r = r + session.getSession().getTotalAscent();
+            Integer val = session.getSession().getTotalAscent();
+            if (val == null) {
+                return 0;
+            }
+            r = r + val;
         }
         return r;
     }
@@ -238,7 +258,11 @@ public class FitMerge {
     public int totalDescent() {
         int r = 0;
         for (FitSession session : this.sessions) {
-            r = r + session.getSession().getTotalDescent();
+            Integer val = session.getSession().getTotalDescent();
+            if (val == null) {
+                return 0;
+            }
+            r = r + val;
         }
         return r;
     }
@@ -255,12 +279,12 @@ public class FitMerge {
         return r;
     }
 
-    public Long totalStrides() {
+    public long totalStrides() {
         long r = 0;
         for (FitSession session : this.sessions) {
             Long val = session.getSession().getTotalStrides();
             if (val == null) {
-                return null;
+                return 0;
             }
             r = r + val;
         }
@@ -270,7 +294,11 @@ public class FitMerge {
     public float totalMovingTime() {
         float r = 0;
         for (FitSession session : this.sessions) {
-            r = r + session.getSession().getTotalMovingTime();
+            Float val = session.getSession().getTotalMovingTime();
+            if (val == null) {
+                return 0;
+            }
+            r = r + val;
         }
         return r;
     }
@@ -278,7 +306,11 @@ public class FitMerge {
     public float totalTimerTime() {
         float r = 0;
         for (FitSession session : this.sessions) {
-            r = r + session.getSession().getTotalTimerTime();
+            Float val = session.getSession().getTotalTimerTime();
+            if (val == null) {
+                return 0;
+            }
+            r = r + val;
         }
         return r;
     }
