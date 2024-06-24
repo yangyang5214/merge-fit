@@ -144,7 +144,12 @@ public class FitMerge {
         sessionMesg.setMaxDepth(maxDepth());
 
         sessionMesg.setSport(sessions.get(0).getSession().getSport());
-        sessionMesg.setSubSport(sessions.get(0).getSession().getSubSport());
+
+        SubSport subSport = firstSession.getSubSport();
+        if (subSport != null) {
+            sessionMesg.setSubSport(subSport);
+        }
+
         sessionMesg.setFirstLapIndex(0);
         sessionMesg.setNumLaps(1);
 
@@ -175,7 +180,10 @@ public class FitMerge {
     private Byte avgTemperature() {
         float r = 0;
         for (FitSession session : this.sessions) {
-            float val = session.getSession().getAvgTemperature();
+            Byte val = session.getSession().getAvgTemperature();
+            if (val == null) {
+                return null;
+            }
             r = r + val;
         }
         return (byte) (r / this.sessions.size());
