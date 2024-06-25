@@ -60,6 +60,11 @@ public class App {
     public static void merge(String[] args) {
         String[] inputs = Arrays.copyOfRange(args, 1, args.length);
 
+        if (inputs.length == 0) {
+            System.out.println("Please set input fit files");
+            return;
+        }
+
         List<FitSession> sessions = new ArrayList<>();
 
         for (String input : inputs) {

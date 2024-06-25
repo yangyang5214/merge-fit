@@ -105,10 +105,10 @@ public class FitMerge {
         sessionMesg.setStartPositionLat(firstSession.getStartPositionLat());
         sessionMesg.setStartPositionLong(firstSession.getStartPositionLong());
 
-        float totalDistance = totalDistance();
-        float totalMovingTime = totalMovingTime();
+        Float totalDistance = totalDistance();
+        Float totalMovingTime = totalMovingTime();
         sessionMesg.setTotalDistance(totalDistance);
-        sessionMesg.setTotalElapsedTime((totalElapsedTime()));
+        sessionMesg.setTotalElapsedTime(totalElapsedTime());
         sessionMesg.setTotalMovingTime((totalMovingTime));
         sessionMesg.setTotalTimerTime((totalTimerTime()));
         sessionMesg.setTotalCalories(totalCalories());
@@ -131,7 +131,9 @@ public class FitMerge {
 
         //速度
         sessionMesg.setMaxSpeed(maxSpeed());
-        sessionMesg.setAvgSpeed(totalDistance / totalMovingTime);
+        if (totalMovingTime != null) {
+            sessionMesg.setAvgSpeed(totalDistance / totalMovingTime);
+        }
         sessionMesg.setMaxBallSpeed(maxBallSpeed());
         sessionMesg.setAvgBallSpeed(avgBallSpeed());
         sessionMesg.setAvgPosVerticalSpeed(avgPosVerticalSpeed());
@@ -168,7 +170,7 @@ public class FitMerge {
         for (FitSession session : this.sessions) {
             Byte val = session.getSession().getMaxTemperature();
             if (val == null) {
-                return 0;
+                return null;
             }
             if (val > r) {
                 r = val;
@@ -189,36 +191,36 @@ public class FitMerge {
         return (byte) (r / this.sessions.size());
     }
 
-    public short avgHeartRate() {
+    public Short avgHeartRate() {
         float r = 0;
         for (FitSession session : this.sessions) {
             Short val = session.getSession().getAvgHeartRate();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
         return (short) (r / this.sessions.size());
     }
 
-    public float avgPosVerticalSpeed() {
+    public Float avgPosVerticalSpeed() {
         float r = 0;
         for (FitSession session : this.sessions) {
             Float val = session.getSession().getAvgPosVerticalSpeed();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
         return r / this.sessions.size();
     }
 
-    public float avgNegVerticalSpeed() {
+    public Float avgNegVerticalSpeed() {
         float r = 0;
         for (FitSession session : this.sessions) {
             Float val = session.getSession().getAvgNegVerticalSpeed();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
@@ -226,7 +228,7 @@ public class FitMerge {
     }
 
 
-    public float totalDistance() {
+    public Float totalDistance() {
         float r = 0;
         for (FitSession session : this.sessions) {
             r = r + session.getSession().getTotalDistance();
@@ -235,40 +237,44 @@ public class FitMerge {
     }
 
 
-    public float totalElapsedTime() {
-        return this.endTime.getTimestamp() - this.startTime.getTimestamp();
+    public Float totalElapsedTime() {
+        float r = 0;
+        for (FitSession session : this.sessions) {
+            r = r + session.getSession().getTotalElapsedTime();
+        }
+        return r;
     }
 
-    public int totalCalories() {
+    public Integer totalCalories() {
         int r = 0;
         for (FitSession session : this.sessions) {
             Integer val = session.getSession().getTotalCalories();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
         return r;
     }
 
-    public int totalAscent() {
+    public Integer totalAscent() {
         int r = 0;
         for (FitSession session : this.sessions) {
             Integer val = session.getSession().getTotalAscent();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
         return r;
     }
 
-    public int totalDescent() {
+    public Integer totalDescent() {
         int r = 0;
         for (FitSession session : this.sessions) {
             Integer val = session.getSession().getTotalDescent();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
@@ -287,36 +293,36 @@ public class FitMerge {
         return r;
     }
 
-    public long totalStrides() {
+    public Long totalStrides() {
         long r = 0;
         for (FitSession session : this.sessions) {
             Long val = session.getSession().getTotalStrides();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
         return r;
     }
 
-    public float totalMovingTime() {
+    public Float totalMovingTime() {
         float r = 0;
         for (FitSession session : this.sessions) {
             Float val = session.getSession().getTotalMovingTime();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
         return r;
     }
 
-    public float totalTimerTime() {
+    public Float totalTimerTime() {
         float r = 0;
         for (FitSession session : this.sessions) {
             Float val = session.getSession().getTotalTimerTime();
             if (val == null) {
-                return 0;
+                return null;
             }
             r = r + val;
         }
