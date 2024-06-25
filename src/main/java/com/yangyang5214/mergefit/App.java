@@ -7,9 +7,7 @@ import com.yangyang5214.mergefit.fit.FitSession;
 import com.yangyang5214.mergefit.fit.FitStat;
 import org.apache.commons.cli.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
@@ -68,6 +66,9 @@ public class App {
             FitDecode decode = new FitDecode();
             sessions.add(decode.Encode(input));
         }
+
+        //sort sessions
+        sessions.sort(Comparator.comparing(o -> o.getSession().getStartTime()));
 
         new FitMerge(args[0], sessions).Merge();
 
