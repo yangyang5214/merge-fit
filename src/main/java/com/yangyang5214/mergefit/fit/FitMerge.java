@@ -97,13 +97,16 @@ public class FitMerge {
 
 
         SessionMesg firstSession = sessions.get(0).getSession();
+        List<RecordMesg> firstRecord = sessions.get(0).getRecords();
+        RecordMesg firstPoint = firstRecord.get(0);
 
         //Session
         SessionMesg sessionMesg = new SessionMesg();
         sessionMesg.setMessageIndex(0);
         sessionMesg.setStartTime(startTime);
-        sessionMesg.setStartPositionLat(firstSession.getStartPositionLat());
-        sessionMesg.setStartPositionLong(firstSession.getStartPositionLong());
+
+        sessionMesg.setStartPositionLat(getStartPositionLat(firstSession, firstPoint));
+        sessionMesg.setStartPositionLong(getStartPositionLong(firstSession, firstPoint));
 
         Float totalDistance = totalDistance();
         Float totalMovingTime = totalMovingTime();
@@ -145,8 +148,7 @@ public class FitMerge {
         sessionMesg.setMaxAltitude(maxAltitude());
         sessionMesg.setMaxDepth(maxDepth());
 
-        sessionMesg.setSport(sessions.get(0).getSession().getSport());
-
+        sessionMesg.setSport(firstSession.getSport());
         SubSport subSport = firstSession.getSubSport();
         if (subSport != null) {
             sessionMesg.setSubSport(subSport);
@@ -158,11 +160,29 @@ public class FitMerge {
         messages.add(sessionMesg);
 
 
+        //Activity
         ActivityMesg activityMesg = sessions.get(0).getActivity();
         activityMesg.setTotalTimerTime(totalTimerTime());
         messages.add(activityMesg);
 
         return messages;
+    }
+
+
+    private Integer getStartPositionLat(SessionMesg firstSession, RecordMesg firstRecord) {
+        Integer val = firstSession.getStartPositionLat();
+        if (val == null) {
+            val = firstRecord.getPositionLat();
+        }
+        return val;
+    }
+
+    private Integer getStartPositionLong(SessionMesg firstSession, RecordMesg firstRecord) {
+        Integer val = firstSession.getStartPositionLong();
+        if (val == null) {
+            val = firstRecord.getPositionLong();
+        }
+        return val;
     }
 
     private Byte maxTemperature() {
