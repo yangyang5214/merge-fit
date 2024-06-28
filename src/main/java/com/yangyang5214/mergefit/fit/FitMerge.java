@@ -111,7 +111,7 @@ public class FitMerge {
         Float totalDistance = totalDistance();
         Float totalMovingTime = totalMovingTime();
         sessionMesg.setTotalDistance(totalDistance);
-        sessionMesg.setTotalElapsedTime(totalElapsedTime());
+        sessionMesg.setTotalElapsedTime((float) (endTime.getTimestamp() - startTime.getTimestamp()));
         sessionMesg.setTotalMovingTime((totalMovingTime));
         sessionMesg.setTotalTimerTime((totalTimerTime()));
         sessionMesg.setTotalCalories(totalCalories());
@@ -256,14 +256,6 @@ public class FitMerge {
         return r;
     }
 
-
-    public Float totalElapsedTime() {
-        float r = 0;
-        for (FitSession session : this.sessions) {
-            r = r + session.getSession().getTotalElapsedTime();
-        }
-        return r;
-    }
 
     public Integer totalCalories() {
         int r = 0;
