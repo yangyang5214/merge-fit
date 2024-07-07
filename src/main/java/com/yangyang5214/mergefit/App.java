@@ -45,6 +45,7 @@ public class App {
             System.out.println(e.getMessage());
             helper.printHelp("Usage:", options);
         }
+        System.gc();
     }
 
     public static void stat(String[] args) {

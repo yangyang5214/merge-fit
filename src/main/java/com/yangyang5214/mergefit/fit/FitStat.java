@@ -29,8 +29,6 @@ public class FitStat {
 
     public void Session() {
         String json = this.gson.toJson(session.getSession());
-        System.out.println(json);
-
         try (FileOutputStream fileOutputStream = new FileOutputStream("session.json")) {
             byte[] bytes = json.getBytes();
             fileOutputStream.write(bytes);
