@@ -19,7 +19,10 @@ public class FitMerge {
         this.sessions = sessions;
 
         this.startTime = sessions.get(0).getRecords().get(0).getTimestamp();
-        this.endTime = sessions.get(sessions.size() - 1).getRecords().get(0).getTimestamp();
+
+        FitSession lastSession = sessions.get(sessions.size() - 1);
+        List<RecordMesg> records = lastSession.getRecords();
+        this.endTime = records.get(records.size() - 1).getTimestamp();
     }
 
     public void Merge() {
