@@ -18,11 +18,8 @@ public class FitMerge {
         this.filename = filename;
         this.sessions = sessions;
 
-        this.startTime = sessions.get(0).getSession().getStartTime();
-
-        List<RecordMesg> recordMesgs = sessions.get(sessions.size() - 1).getRecords();
-        this.endTime = recordMesgs.get(recordMesgs.size() - 1).getTimestamp();
-
+        this.startTime = sessions.get(0).getRecords().get(0).getTimestamp();
+        this.endTime = sessions.get(sessions.size() - 1).getRecords().get(0).getTimestamp();
     }
 
     public void Merge() {
