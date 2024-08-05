@@ -86,8 +86,13 @@ public class FitMerge {
         }
 
         //Record
-        for (FitSession session : sessions) {
-            messages.addAll(session.getRecords());
+        for (int i = 0; i < sessions.size(); i++) {
+            FitSession session = sessions.get(i);
+            List<RecordMesg> records = session.getRecords();
+            if (i == 0) {
+                records = records.subList(1, records.size());
+            }
+            messages.addAll(records);
         }
 
         //Lap
