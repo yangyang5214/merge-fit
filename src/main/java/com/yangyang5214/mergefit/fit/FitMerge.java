@@ -38,7 +38,10 @@ public class FitMerge {
         fileIdMesg.setType(fileType);
         fileIdMesg.setManufacturer((int) manufacturerId);
         fileIdMesg.setProduct((int) productId);
-        fileIdMesg.setTimeCreated(this.sessions.get(0).getFileIdMesg().getTimeCreated());
+
+        DateTime created = this.sessions.get(0).getFileIdMesg().getTimeCreated();
+        created.add(1);
+        fileIdMesg.setTimeCreated(created);
         fileIdMesg.setSerialNumber((long) serialNumber);
 
         DeviceInfoMesg deviceInfoMesg = new DeviceInfoMesg();
